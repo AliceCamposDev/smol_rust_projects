@@ -1,0 +1,8 @@
+[package]
+name = "nlp_search"
+version = "0.1.0"
+edition = "2024"
+[dependencies]
+rust-bert = "0.23.0"
+console = { version = "0.16", features = ["std"] }
+tch = "0.17.0"
