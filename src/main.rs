@@ -1,8 +1,10 @@
 mod parts_of_speech_mod;
 mod nlp_search;
+mod stt;
 
 use crate::nlp_search::nlp_search::nlp_search_fn;
 use crate::parts_of_speech_mod::parts_of_speech::parts_of_speech_fn;
+use crate::stt::stt::stt_fn;
 
 use std::io::{self, Write};
 
@@ -11,6 +13,7 @@ fn main() {
         println!("\n=== NLP TOOL ===");
         println!("1 - Parts of Speech");
         println!("2 - NLP Search");
+        println!("3 - STT");
         println!("0 - Exit");
         print!("Select an option: ");
 
@@ -27,6 +30,10 @@ fn main() {
             "2" => {
                 println!("\nRunning NLP search...\n");
                 nlp_search_fn();
+            }
+            "3" => {
+                println!("\nRunning STT...\n");
+                stt_fn();
             }
             "0" => {
                 println!("Bye!");
