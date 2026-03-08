@@ -5,7 +5,9 @@ mod file_handling;
 mod translator;
 mod neural_network;
 mod load_vault;
+mod note_structure;
 
+// use crate::note_structure::note_structure::note_structure_fn;
 use crate::neural_network::neural_network::neural_network_fn;
 use crate::translator::translator::translator_fn;
 use crate::file_handling::file_handling::file_handling_fn;
@@ -64,6 +66,10 @@ fn main() {
                 println!("\n");
                 load_vault_fn();
             }
+            // "8" => {
+            //     println!("\n");
+            //    note_structure_fn();
+            // }
             "0" => {
                 println!("Bye!");
                 break;

@@ -1,0 +1,31 @@
+{
+  "note_id": "uuid",
+  "rel_path": "pasta/arquivo.md",
+  "title": "Título da nota (primeiro heading ou nome do arquivo)",
+  "content": "conteúdo textual completo",
+  "content_chunks": [
+    {"text": "parágrafo 1", "embedding": []},
+    {"text": "parágrafo 2", "embedding": []}
+  ],
+  "metadata": {
+    "created": "2020-01-01T00:00:00",
+    "modified": "2018-10-20 01:46:40",
+    "size": 12345
+  },
+  "links": {
+    "wikilinks": [
+      {"target": "uuid", "alias": "texto do link", "context": "trecho onde aparece"}
+    ],
+    "backlinks": [
+      {"source": "uuid", "context": "trecho"}
+    ],
+    "web_links": [
+      {"url": "https://exemplo.com", "text": "link text", "context": "trecho"}
+    ],
+    "embedded_files": [
+      {"path": "imagem.png", "type": "image", "desc": "ignorar por enquanto"}
+    ]
+  },
+  "tags": ["tag1", "tag2"],
+  "schema_version": "1.0"
+}

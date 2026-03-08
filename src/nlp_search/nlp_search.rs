@@ -20,7 +20,7 @@ impl NPIndex {
             let phrases = expand_np(&np);
 
             for phrase in phrases {
-                let entry = self.index.entry(phrase).or_insert_with(HashMap::new);
+                let entry: &mut HashMap<u16, usize> = self.index.entry(phrase).or_insert_with(HashMap::new);
 
                 *entry.entry(doc_id).or_insert(0) += 1;
             }

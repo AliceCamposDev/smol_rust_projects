@@ -1,34 +1,44 @@
+use rayon::prelude::*;
 use std::fs;
-use std::fs::File;
-use std::io::{Read, Write};
-use std::path::Path;
+// use std::path::Path;
+// use std::thread;
+use walkdir::WalkDir;
+
+use crate::note_structure::note_structure::parse_note;
+
 
 pub fn load_vault_fn() {
-    let mut file = fs::File::create("example.md").expect("Unable to create file");
-    writeln!(file, "Hello, world!").expect("Unable to write to file");
-    let contents = fs::read_to_string("example.txt").expect("Unable to read file");
-    println!("File contents: {}", contents);
+    let entries: Vec<std::path::PathBuf> = WalkDir::new("./Bible Study Kit (v1)")
+        .into_iter()
+        .filter_map(|entry_res: Result<walkdir::DirEntry, walkdir::Error>| {
+            let entry: walkdir::DirEntry = entry_res.ok()?;
+            let ft = entry.file_type();
+            if ft.is_file() {
+                if let Some(ext) = entry.path().extension() {
+                    if ext.eq_ignore_ascii_case("md") {
+                        return Some(entry.path().to_path_buf());
+                    }
+                }
+                None
+            } else {
+                None
+            }
+        })
+        .collect();
 
-    let mut file2 = fs::File::create("example2.md").unwrap();
-    file2.write_all("World, hello!".as_bytes()).unwrap();
+    // println!("{:#?}", entries);
 
-    let mut f = File::open("intro.md").unwrap();
-
-    let mut buffer = Vec::new();
-    f.read_to_end(&mut buffer).unwrap();
-
-
-
-
-    println!("File contents: {:?}", String::from_utf8_lossy(&buffer));
-    let path = Path::new("./documents_to_test");
-    for entry in fs::read_dir(path).unwrap() {
-        let entry = entry.unwrap();
-        let path = entry.path();
-
+    entries.par_iter().for_each(|path| {
+        // println!("Thread: {:?}", thread::current().id());
         if path.is_file() {
-            let content = fs::read_to_string(&path).unwrap();
-            println!("Arquivo: {:?}\n{}", path, content);
+            match fs::read_to_string(path) {
+                Ok(_) => {
+                    parse_note(path);
+                }
+                Err(e) => {
+                    eprintln!("Skipping {}: {}", path.display(), e);
+                }
+            }
         }
-    }
+    });
 }
