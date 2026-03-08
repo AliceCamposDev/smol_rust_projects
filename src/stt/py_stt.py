@@ -12,7 +12,7 @@ def main():
 
     audio_path = sys.argv[1]
     try:
-        model = whisper.load_model("tiny") 
+        model = whisper.load_model("medium") 
         result = model.transcribe(audio_path)
         print(json.dumps({"text": result["text"]}))
     except Exception as e:
